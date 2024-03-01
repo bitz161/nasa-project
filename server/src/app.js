@@ -8,6 +8,6 @@ app.use(express.json());
 
 app.use(planetsRouter);
 
-module.export = {
+module.exports = {
   app,
 };
