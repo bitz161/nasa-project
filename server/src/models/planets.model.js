@@ -1,3 +1,3 @@
-const planets = [{ id: 1, planet: "Earth" }];
+const planets = [];
 
-module.export = { planets };
+module.exports = { planets };
