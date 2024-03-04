@@ -29,7 +29,8 @@ app.use(launchesRouter);
 
 //due to issue with the site not directly showing the content of the page due to the routing
 //here is how to resolved it
-app.get("/", (req, res) => {
+//to allow any parameters or endpoint is within the url
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
