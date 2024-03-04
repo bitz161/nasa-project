@@ -1,9 +1,10 @@
 const { launches } = require("../../models/launches.model");
 
-function getLaunches(req, res) {
-  return res.status(200).json(launches);
+function getAllLaunches(req, res) {
+  //to get the values of model under a map
+  return res.status(200).json(Array.from(launches.values()));
 }
 
 module.exports = {
-  getLaunches,
+  getAllLaunches,
 };
