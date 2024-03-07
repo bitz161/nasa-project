@@ -9,8 +9,28 @@ function httpAddNewLaunch(req, res) {
   //req.body is the content of the request
   const launch = req.body;
 
+  //data validation
+  if (
+    !launch.mission ||
+    !launch.rocket ||
+    !launch.launchDate ||
+    !launch.target
+  ) {
+    return res.status(400).json({
+      error: "Missing required launch property",
+    });
+  }
+
   //convert the string date to New Date
   launch.launchDate = new Date(launch.launchDate);
+
+  //data validation of date
+  //isnan will check if the date is a number or not
+  if (isNaN(launch.launchDate.valueOf())) {
+    return res.status(400).json({
+      error: "Invalid launch date",
+    });
+  }
 
   //access the function within controller
   addNewLaunch(launch);
