@@ -38,7 +38,22 @@ function addNewLaunch(launch) {
   );
 }
 
+//checking if there is an id on the launches
+function existsLaunchWithID(launchId) {
+  return launches.has(launchId);
+}
+
+//Updating request
+function abortlaunchById(launchID) {
+  const aborted = launches.get(launchID);
+  aborted.upcoming = false;
+  aborted.success = false;
+  return aborted;
+}
+
 module.exports = {
   getAllLaunches,
   addNewLaunch,
+  existsLaunchWithID,
+  abortlaunchById,
 };
