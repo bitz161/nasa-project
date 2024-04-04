@@ -1,4 +1,6 @@
 //IMPORTS
+const planets = require("./planets.mongo");
+
 const { parse } = require("csv-parse");
 const fs = require("fs");
 const path = require("path");
