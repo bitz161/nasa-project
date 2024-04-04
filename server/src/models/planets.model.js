@@ -30,10 +30,16 @@ function loadPlanetsData() {
           columns: true,
         })
       )
-      .on("data", (data) => {
+
+      .on("data", async (data) => {
         //pushing data in habitablePlanets array
         if (isHabitablePlanet(data)) {
-          habitablePlanets.push(data);
+          // insert + update = upsert
+
+          //pass data in mongoose schema
+          await planets.create({
+            keplarName: data.kepler_name,
+          });
         }
       })
       .on("error", (err) => {
