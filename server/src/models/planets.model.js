@@ -34,12 +34,11 @@ function loadPlanetsData() {
       .on("data", async (data) => {
         //pushing data in habitablePlanets array
         if (isHabitablePlanet(data)) {
-          // insert + update = upsert
-
+          //TODO: Replace below create with insert + update = upsert
           //pass data in mongoose schema
-          await planets.create({
-            keplarName: data.kepler_name,
-          });
+          // await planets.create({
+          //   keplarName: data.kepler_name,
+          // });
         }
       })
       .on("error", (err) => {
