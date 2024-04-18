@@ -35,9 +35,8 @@ function loadPlanetsData() {
         //pushing data in habitablePlanets array
         if (isHabitablePlanet(data)) {
           //TODO: Replace below create with insert + update = upsert
-          //pass data in mongoose schema
           // await planets.create({
-          //   keplarName: data.kepler_name,
+          //   keplerName: data.kepler_name
           // });
         }
       })
