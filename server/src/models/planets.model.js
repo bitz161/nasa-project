@@ -5,7 +5,7 @@ const { parse } = require("csv-parse");
 const fs = require("fs");
 const path = require("path");
 
-const habitablePlanets = [];
+// const habitablePlanets = [];
 
 //boolean, filter keplars based on study if habitable.
 function isHabitablePlanet(planet) {
@@ -34,10 +34,7 @@ function loadPlanetsData() {
       .on("data", async (data) => {
         //pushing data in habitablePlanets array
         if (isHabitablePlanet(data)) {
-          //TODO: Replace below create with insert + update = upsert
-          // await planets.create({
-          //   keplerName: data.kepler_name
-          // });
+          savePlanet(data);
         }
       })
       .on("error", (err) => {
@@ -46,9 +43,11 @@ function loadPlanetsData() {
 
         reject(err);
       })
-      .on("end", () => {
+      .on("end", async () => {
         //inform that code is done running
-        console.log(`${habitablePlanets.length} habitable planets found!`);
+        //count the planet found
+        const countPlanetFound = (await getAllPlanets()).length;
+        console.log(`${countPlanetFound} habitable planets found!`);
 
         //call resolved once the value has been populated and ready to go
         resolve();
@@ -56,8 +55,28 @@ function loadPlanetsData() {
   });
 }
 
-function getAllPlanets() {
-  return habitablePlanets;
+async function getAllPlanets() {
+  return planets.find({});
+  //find: https://mongoosejs.com/docs/api/model.html#Model.find()
+}
+
+async function savePlanet(planet) {
+  try {
+    //Add to Mongo, skip if already added, upsert = Update and Insert
+    await planets.updateOne(
+      {
+        keplerName: planet.kepler_name,
+      },
+      {
+        keplerName: planet.kepler_name,
+      },
+      {
+        upsert: true,
+      }
+    );
+  } catch (err) {
+    console.error(`Could not save planet ${err}`);
+  }
 }
 
 module.exports = {

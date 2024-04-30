@@ -1,6 +1,6 @@
-const launches = require("./launches.mongo");
+// const launches = require("./launches.mongo");
 
-// const launches = new Map();
+const launches = new Map();
 
 let latestFlightNumber = 100;
 
