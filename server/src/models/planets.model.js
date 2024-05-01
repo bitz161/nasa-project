@@ -56,7 +56,14 @@ function loadPlanetsData() {
 }
 
 async function getAllPlanets() {
-  return planets.find({});
+  return planets.find(
+    {},
+    {
+      _id: 0,
+      __v: 0,
+      //exclude a part of the response
+    }
+  );
   //find: https://mongoosejs.com/docs/api/model.html#Model.find()
 }
 
