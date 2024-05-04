@@ -1,4 +1,4 @@
-// const launches = require("./launches.mongo");
+const launchesDatabase = require("./launches.mongo");
 
 const launches = new Map();
 
@@ -10,15 +10,30 @@ const launch = {
   rocket: "Explorer IS1",
   launchDate: new Date("December 27, 2030"),
   target: "Kepler-442 b",
-  customer: ["NASA", "ZTM"],
+  customers: ["NASA", "ZTM"],
   upcoming: true,
   success: true,
 };
 
-launches.set(launch.flightNumber, launch);
+saveLaunch(launch);
+//old function calling
+// launches.set(launch.flightNumber, launch);
 
-function getAllLaunches() {
-  return Array.from(launches.values());
+//getting the data inside the database
+async function getAllLaunches() {
+  return await launchesDatabase.find({}, { _id: 0, __v: 0 });
+}
+
+async function saveLaunch(launch) {
+  try {
+    await launchesDatabase.updateOne(
+      {
+        flightNumber: launch.flightNumber,
+      },
+      launch,
+      { upsert: true }
+    );
+  } catch (error) {}
 }
 
 //adding function
